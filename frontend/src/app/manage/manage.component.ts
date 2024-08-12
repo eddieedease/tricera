@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-manage',
@@ -8,4 +9,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './manage.component.html',
   styleUrl: './manage.component.css',
 })
-export class ManageComponent {}
+export class ManageComponent {
+  // environment vars
+  apiUrl = environment.apiUrl;
+}

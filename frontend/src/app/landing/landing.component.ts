@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../environments/environment';
+
 
 @Component({
   selector: 'app-landing',
@@ -8,4 +10,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css',
 })
-export class LandingComponent {}
+export class LandingComponent {
+  // environment vars
+  apiUrl = environment.apiUrl;
+}

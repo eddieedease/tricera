@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../environments/environment';
+
 
 @Component({
   selector: 'app-admin',
@@ -8,4 +10,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css',
 })
-export class AdminComponent {}
+export class AdminComponent {
+  // environment vars
+  apiUrl = environment.apiUrl;
+}
