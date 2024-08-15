@@ -4,6 +4,7 @@ import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './login/login.component';
 import { Error404Component } from './error404/error404.component';
 import { ManageComponent } from './manage/manage.component';
+import { EditorComponent } from './editor/editor.component';
 
 export const appRoutes: Route[] = [
   { path: '', component: LandingComponent },
@@ -11,6 +12,7 @@ export const appRoutes: Route[] = [
   { path: 'admin', component: AdminComponent },
   { path: 'login', component: LoginComponent },
   { path: '404', component: Error404Component },
+  { path: 'editor', component: EditorComponent },
   { path: 'manage', component: ManageComponent },
   // { path: 'product/:id', component: ProductDetailComponent }
 ];

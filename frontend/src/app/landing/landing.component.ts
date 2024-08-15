@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../environments/environment';
 import { TranslateModule } from '@ngx-translate/core';
+import { StoreSerService } from '../store-ser.service';
 
 
 @Component({
@@ -12,6 +12,24 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './landing.component.css',
 })
 export class LandingComponent {
+
+  message: string = '';
+
   // environment vars
-  apiUrl = environment.apiUrl;
+  constructor(private storeService: StoreSerService) {}
+
+  ngOnInit() {
+    this.storeService.getHelloMessage().subscribe({
+      next: (response) => {
+        this.message = response.message;
+      },
+      error: (error) => {
+        console.error('Error fetching message:', error);
+        this.message = 'Error loading message';
+      }
+    });
+
+    // logger test
+    this.storeService.warn('This is a test warning');
+  }
 }
