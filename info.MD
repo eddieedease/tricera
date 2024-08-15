@@ -4,6 +4,12 @@
 nx add @nestjs/swagger
 
 ### Frontend
+
+install packages
+nx add @angular/cdk --project=frontend
+npm install ngx-markdown --save
+
+angular specifc
 Component
 nx g @nx/angular:component my-new-component --directory=frontend/src/app
 
