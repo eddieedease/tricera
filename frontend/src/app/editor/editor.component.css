@@ -1,0 +1,51 @@
+@media (max-width: 1023px) {
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 40;
+    }
+  }
+  
+  .sidebar-overlay {
+    @apply fixed inset-0 bg-black opacity-50 z-30;
+  }
+
+  #sidebar {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  @media (min-width: 1024px) {
+    .sidebar-open .flex-1 {
+      margin-left: 16rem; 
+    }
+  }
+
+
+.chapter {
+    margin-bottom: 0.5rem;
+  }
+  
+  .subchapter {
+    margin-top: 0.25rem;
+  }
+  
+  .chapter > div, .subchapter > div {
+    border-radius: 0.25rem;
+    transition: background-color 0.2s;
+  }
+  
+  .chapter > div:hover, .subchapter > div:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+
+  .subchapter:not(:last-child)::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin-left: 0.75rem;
+  }

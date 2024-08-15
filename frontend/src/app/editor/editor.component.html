@@ -1,51 +1,66 @@
-<div class="flex h-screen bg-gray-100">
-    <!-- Sidebar -->
-    <div class="w-64 bg-gray-800 text-white">
-      <div class="p-4">
+<div class="flex flex-col h-screen w-screen overflow-hidden">
+  <!-- Header (always visible) -->
+  <header class="bg-white shadow z-20">
+    <div class="flex items-center justify-between px-4 py-3">
+      <button (click)="toggleSidebar()" class="text-gray-500 focus:outline-none focus:text-gray-700 lg:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+      <div class="relative w-64">
+        <input type="text" class="w-full px-4 py-2 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Search">
+      </div>
+    </div>
+  </header>
+
+  <div class="flex flex-1 overflow-hidden">
+    <!-- Sidebar (hidden by default on mobile) -->
+    <div id="sidebar" class="w-64 bg-gray-800 text-white flex-shrink-0 transition-all duration-300 ease-in-out transform -translate-x-full lg:translate-x-0 fixed top-0 left-0 h-full z-30 pt-16 lg:pt-0 lg:static">
+      <div class="p-4 flex justify-between items-center">
         <h1 class="text-2xl font-semibold">SIDEBAR</h1>
+        <button (click)="toggleSidebar()" class="text-white focus:outline-none lg:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
       </div>
       <nav class="mt-4">
-        <div cdkDropList (cdkDropListDropped)="onDrop($event)" class="space-y-2">
+        <div cdkDropList (cdkDropListDropped)="onChapterDrop($event)" [cdkDropListData]="chapters">
+          
+          
           <div *ngFor="let chapter of chapters" class="chapter" cdkDrag>
             <div class="flex items-center px-4 py-2 hover:bg-gray-700 cursor-pointer" (click)="selectContent(chapter.content)">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
               </svg>
-              <span>{{ chapter.title }}</span>
+              <span class="truncate">{{ chapter.title }}</span>
             </div>
-            <div cdkDropList [cdkDropListData]="chapter.subchapters" (cdkDropListDropped)="onDrop($event)" class="ml-4">
+            <div cdkDropList 
+                 [id]="chapter.id + '-subchapters'"
+                 [cdkDropListData]="chapter.subchapters" 
+                 (cdkDropListDropped)="onDrop($event)" 
+                 [cdkDropListConnectedTo]="getConnectedListIds()"
+                 class="ml-6 min-h-[20px]"> <!-- Added min-height to ensure there's always a drop target -->
               <div *ngFor="let subchapter of chapter.subchapters" class="subchapter" cdkDrag>
                 <div class="flex items-center px-4 py-2 hover:bg-gray-700 cursor-pointer" (click)="selectContent(subchapter.content)">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />
                   </svg>
-                  <span>{{ subchapter.title }}</span>
+                  <span class="truncate">{{ subchapter.title }}</span>
                 </div>
               </div>
             </div>
           </div>
+
+
+
         </div>
       </nav>
     </div>
-  
+
     <!-- Main Content -->
-    <div class="flex-1 flex flex-col overflow-hidden">
-      <!-- Header -->
-      <header class="bg-white shadow">
-        <div class="flex items-center justify-between px-4 py-3">
-          <button class="text-gray-500 focus:outline-none focus:text-gray-700">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-          <div class="relative w-64">
-            <input type="text" class="w-full px-4 py-2 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Search">
-          </div>
-        </div>
-      </header>
-  
-      <!-- Content Area -->
-      <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200 p-6">
+    <div class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+      <main class="p-6">
         <h2 class="text-3xl font-semibold text-gray-800 mb-4">Welcome to my dashboard!</h2>
         <p class="text-gray-600 mb-8">This is an example dashboard using Tailwind CSS.</p>
         <div class="bg-white rounded-lg shadow p-6">
@@ -54,3 +69,4 @@
       </main>
     </div>
   </div>
+</div>

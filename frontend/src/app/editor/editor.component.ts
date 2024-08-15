@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DragDropModule, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { MarkdownComponent } from 'ngx-markdown';
@@ -29,6 +29,7 @@ export class EditorComponent {
 
   chapters: Chapter[] = [];
   selectedContent: string = '';
+  isSidebarOpen: boolean = false;
 
   ngOnInit() {
     // Initialize with some dummy data
@@ -46,12 +47,15 @@ export class EditorComponent {
         id: '2',
         title: 'Chapter 2',
         content: '# Chapter 2\n\nThis is the content of chapter 2.',
-        subchapters: []
+        subchapters: [
+          { id: '2-1', title: 'Subchapter 2.1', content: '## Subchapter 1.1\n\nContent of subchapter 2.1' },
+        ]
       }
     ];
   }
 
-  onDrop(event: CdkDragDrop<Chapter[] | Subchapter[]>) {
+  // drag and drop 
+  onDrop(event: CdkDragDrop<Subchapter[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -59,13 +63,60 @@ export class EditorComponent {
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex
+        event.currentIndex,
       );
+    }
+  }
+
+  onChapterDrop(event: CdkDragDrop<Chapter[]>) {
+    moveItemInArray(this.chapters, event.previousIndex, event.currentIndex);
+  }
+
+  getConnectedListIds(): string[] {
+    return this.chapters.map(chapter => `${chapter.id}-subchapters`);
+  }
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar) {
+      sidebar.classList.toggle('-translate-x-full');
+    }
+    
+    // Add or remove overlay
+    if (this.isSidebarOpen) {
+      this.addOverlay();
+    } else {
+      this.removeOverlay();
     }
   }
 
   selectContent(content: string) {
     this.selectedContent = content;
+    if (window.innerWidth < 1024 && this.isSidebarOpen) {
+      this.toggleSidebar(); // Close sidebar on mobile after selection
+    }
+  }
+
+  private addOverlay() {
+    const overlay = document.createElement('div');
+    overlay.classList.add('sidebar-overlay');
+    overlay.addEventListener('click', () => this.toggleSidebar());
+    document.body.appendChild(overlay);
+  }
+
+  private removeOverlay() {
+    const overlay = document.querySelector('.sidebar-overlay');
+    if (overlay) {
+      document.body.removeChild(overlay);
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    if (event.target.innerWidth >= 1024 && this.isSidebarOpen) {
+      this.toggleSidebar(); // Close sidebar if screen becomes larger than 1024px
+    }
   }
 
 }
