@@ -21,6 +21,8 @@
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/swagger": "^7.4.0",
     "@nestjs/testing": "^10.0.2",
+    "@ngx-translate/core": "^15.0.0",
+    "@ngx-translate/http-loader": "^8.0.0",
     "@nx/angular": "^19.5.7",
     "@nx/eslint": "19.5.7",
     "@nx/eslint-plugin": "19.5.7",

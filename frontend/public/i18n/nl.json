@@ -1,0 +1,15 @@
+{
+    "WELCOME": "Welkom",
+    "INTRO_MESSAGE": "Dit is een voorbeeldapplicatie",
+    "LANGUAGE": "Taal",
+    "PRODUCTS": "Producten",
+    "PRODUCT_LIST": {
+      "TITLE": "Onze Producten",
+      "DESCRIPTION": "Bekijk onze geweldige producten!",
+      "ITEM_1": "Laptop",
+      "ITEM_2": "Smartphone",
+      "ITEM_3": "Koptelefoon"
+    },
+    "PRICE": "Prijs",
+    "CURRENCY": "EUR"
+  }

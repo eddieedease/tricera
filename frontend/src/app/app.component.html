@@ -1,21 +1,49 @@
-<nav>
-
-</nav>
-
 <div class="min-h-screen bg-white">
   <header class="bg-white shadow-sm">
-    <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="text-2xl font-bold">Each&Other</div>
-      <div class="space-x-4">
-        <a routerLink="/" class="text-gray-600 hover:text-gray-900"routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-        <a routerLink="/admin" class="text-gray-600 hover:text-gray-900" routerLinkActive="active">Admin</a>
-        <a routerLink="/manage" class="text-gray-600 hover:text-gray-900" routerLinkActive="active">Manage</a>
-        <a routerLink="/login" class="text-gray-600 hover:text-gray-900"routerLinkActive="active">Login</a>
+    <nav class="container mx-auto px-4 py-4">
+      <div class="flex justify-between items-center">
+        <div class="text-2xl font-bold">Each&Other</div>
+        
+        <!-- Hamburger menu button (visible on mobile) -->
+        <button class="lg:hidden" (click)="toggleMobileMenu()">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+
+        <!-- Desktop menu (hidden on mobile) -->
+        <div class="hidden lg:flex space-x-4">
+          <a routerLink="/" class="text-gray-600 hover:text-gray-900" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+          <a routerLink="/admin" class="text-gray-600 hover:text-gray-900" routerLinkActive="active">Admin</a>
+          <a routerLink="/manage" class="text-gray-600 hover:text-gray-900" routerLinkActive="active">Manage</a>
+          <a routerLink="/login" class="text-gray-600 hover:text-gray-900" routerLinkActive="active">Login</a>
+        </div>
+
+        <!-- Language selector (hidden on mobile) -->
+        <div class="hidden lg:flex space-x-2">
+          <a (click)="changeLanguage('nl')" class="text-gray-600 hover:text-gray-900" style="cursor: pointer;">NL</a>
+          <span class="text-gray-300">/</span>
+          <a (click)="changeLanguage('en')" class="text-gray-600 hover:text-gray-900" style="cursor: pointer;">EN</a>
+        </div>
       </div>
-      <div class="space-x-2">
-        <a href="#" class="text-gray-600 hover:text-gray-900">EN</a>
-        <span class="text-gray-300">/</span>
-        <a href="#" class="text-gray-600 hover:text-gray-900">DE</a>
+
+      <!-- Mobile menu (hidden by default) -->
+      <div class="lg:hidden" [ngClass]="{'hidden': !isMobileMenuOpen}">
+        <div class="pt-2 pb-3 space-y-1">
+          <a routerLink="/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50" routerLinkActive="bg-gray-50" [routerLinkActiveOptions]="{exact: true}" (click)="closeMobileMenu()">Home</a>
+          <a routerLink="/admin" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50" routerLinkActive="bg-gray-50" (click)="closeMobileMenu()">Admin</a>
+          <a routerLink="/manage" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50" routerLinkActive="bg-gray-50" (click)="closeMobileMenu()">Manage</a>
+          <a routerLink="/login" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50" routerLinkActive="bg-gray-50" (click)="closeMobileMenu()">Login</a>
+        </div>
+        <div class="pt-4 pb-3 border-t border-gray-200">
+          <div class="flex items-center px-4">
+            <div class="flex-shrink-0">
+              <a href="#" class="text-base font-medium text-gray-600 hover:text-gray-900" (click)="closeMobileMenu();changeLanguage('nl')" style="cursor: pointer;">NL</a>
+              <span class="text-gray-300 mx-2">/</span>
+              <a href="#" class="text-base font-medium text-gray-600 hover:text-gray-900" (click)="closeMobileMenu();changeLanguage('en')" style="cursor: pointer;">EN</a>
+            </div>
+          </div>
+        </div>
       </div>
     </nav>
   </header>
@@ -23,7 +51,6 @@
   <main class="container mx-auto px-4 py-8">
     <!-- Router Outlet Placeholder -->
     <div class="mt-8">
-      <!-- This is where your router outlet would go -->
       <router-outlet></router-outlet>
     </div>
   </main>

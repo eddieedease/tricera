@@ -1,0 +1,15 @@
+{
+    "WELCOME": "Welcome",
+    "INTRO_MESSAGE": "This is a sample application",
+    "LANGUAGE": "Language",
+    "PRODUCTS": "Products",
+    "PRODUCT_LIST": {
+      "TITLE": "Our Products",
+      "DESCRIPTION": "Check out our amazing products!",
+      "ITEM_1": "Laptop",
+      "ITEM_2": "Smartphone",
+      "ITEM_3": "Headphones"
+    },
+    "PRICE": "Price",
+    "CURRENCY": "USD"
+  }
