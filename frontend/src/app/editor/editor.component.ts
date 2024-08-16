@@ -1,10 +1,9 @@
-import { Component, HostListener  } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { DragDropModule, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { MarkdownComponent } from 'ngx-markdown';
 
-
-// interface chapters
 interface Chapter {
   id: string;
   title: string;
@@ -21,15 +20,16 @@ interface Subchapter {
 @Component({
   selector: 'app-editor',
   standalone: true,
-  imports: [CommonModule, DragDropModule, MarkdownComponent],
+  imports: [CommonModule, FormsModule, DragDropModule, MarkdownComponent],
   templateUrl: './editor.component.html',
   styleUrl: './editor.component.css',
 })
 export class EditorComponent {
-
   chapters: Chapter[] = [];
   selectedContent: string = '';
+  processedContent: string = '';
   isSidebarOpen: boolean = false;
+  currentlyEditing: { type: 'chapter' | 'subchapter', id: string } | null = null;
 
   ngOnInit() {
     // Initialize with some dummy data
@@ -48,13 +48,12 @@ export class EditorComponent {
         title: 'Chapter 2',
         content: '# Chapter 2\n\nThis is the content of chapter 2.',
         subchapters: [
-          { id: '2-1', title: 'Subchapter 2.1', content: '## Subchapter 1.1\n\nContent of subchapter 2.1' },
+          { id: '2-1', title: 'Subchapter 2.1', content: '## Subchapter 2.1\n\nContent of subchapter 2.1' },
         ]
       }
     ];
   }
 
-  // drag and drop 
   onDrop(event: CdkDragDrop<Subchapter[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -83,7 +82,6 @@ export class EditorComponent {
       sidebar.classList.toggle('-translate-x-full');
     }
     
-    // Add or remove overlay
     if (this.isSidebarOpen) {
       this.addOverlay();
     } else {
@@ -91,11 +89,48 @@ export class EditorComponent {
     }
   }
 
-  selectContent(content: string) {
-    this.selectedContent = content;
-    if (window.innerWidth < 1024 && this.isSidebarOpen) {
-      this.toggleSidebar(); // Close sidebar on mobile after selection
+  selectContent(content: string, type: 'chapter' | 'subchapter', id: string) {
+    if (this.currentlyEditing) {
+      this.saveCurrentContent();
     }
+    this.selectedContent = content;
+    this.currentlyEditing = { type, id };
+    this.processMarkdown();
+    if (window.innerWidth < 1024 && this.isSidebarOpen) {
+      this.toggleSidebar();
+    }
+  }
+
+  onContentChange() {
+    this.processMarkdown();
+    // Auto-save changes
+    this.saveCurrentContent();
+  }
+
+  processMarkdown() {
+    this.processedContent = this.selectedContent.replace(/\n/g, '  \n');
+    this.processedContent = this.processedContent.replace(/^(#+)\s*(.+)$/gm, (match, hashes, title) => {
+      return `${hashes} ${title.trim()}`;
+    });
+  }
+
+  saveCurrentContent() {
+    if (!this.currentlyEditing) return;
+
+    const { type, id } = this.currentlyEditing;
+    if (type === 'chapter') {
+      const chapter = this.chapters.find(ch => ch.id === id);
+      if (chapter) chapter.content = this.selectedContent;
+    } else {
+      for (const chapter of this.chapters) {
+        const subchapter = chapter.subchapters.find(sub => sub.id === id);
+        if (subchapter) {
+          subchapter.content = this.selectedContent;
+          break;
+        }
+      }
+    }
+    console.log('Content saved:', this.selectedContent);
   }
 
   private addOverlay() {
@@ -115,8 +150,7 @@ export class EditorComponent {
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     if (event.target.innerWidth >= 1024 && this.isSidebarOpen) {
-      this.toggleSidebar(); // Close sidebar if screen becomes larger than 1024px
+      this.toggleSidebar();
     }
   }
-
 }

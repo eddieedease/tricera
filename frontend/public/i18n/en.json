@@ -11,5 +11,19 @@
       "ITEM_3": "Headphones"
     },
     "PRICE": "Price",
-    "CURRENCY": "USD"
+    "CURRENCY": "USD",
+    "TAGLINE" : "Discover LearnCreative: ",
+    "HEADBAN" : "Your Partner in Interactive Online Learning",
+    "MAINTEXT" : "Effortlessly create beautiful e-learning courses with our innovative drag-and-drop editor. Whether you're a seasoned instructor or just starting out, LearnCreative empowers you to build engaging learning experiences without any technical know-how.",
+    "REASONS" : "Why Choose LearnCreative?",
+    "REASON1BOLD" : "Intuitive Drag-and-Drop Editor:",
+    "REASON1" : "Design professional courses in minutes.",
+    "REASON2BOLD" : "Versatile Content Creation: ",
+    "REASON2" : "Easily add text, images, videos, and quizzes.",
+    "REASON3BOLD" : "Responsive Design:",
+    "REASON3" : "Your courses look perfect on any device.",
+    "REASON4BOLD" : "User-Friendly Platform:",
+    "REASON4" : "Simple to navigate for both course creators and learners.",
+    "STARTTODAY" : "Start transforming your knowledge into captivating online learning experiences today!",
+    "DEMO" : "[Start Free Trial]   [Watch Demo Video]"
   }

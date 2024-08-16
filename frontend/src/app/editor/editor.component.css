@@ -23,29 +23,12 @@
   }
 
 
-.chapter {
-    margin-bottom: 0.5rem;
+  :host ::ng-deep .markdown-body ul {
+    list-style-type: disc;
+    padding-left: 1.5em;
   }
   
-  .subchapter {
-    margin-top: 0.25rem;
-  }
-  
-  .chapter > div, .subchapter > div {
-    border-radius: 0.25rem;
-    transition: background-color 0.2s;
-  }
-  
-  .chapter > div:hover, .subchapter > div:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-  
-
-  .subchapter:not(:last-child)::after {
-    content: '';
-    display: block;
-    width: 1px;
-    height: 0.5rem;
-    background-color: rgba(255, 255, 255, 0.2);
-    margin-left: 0.75rem;
+  :host ::ng-deep .markdown-body ol {
+    list-style-type: decimal;
+    padding-left: 1.5em;
   }

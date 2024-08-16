@@ -6,7 +6,8 @@ import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownModule, provideMarkdown  } from 'ngx-markdown';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './i18n/', '.json');
@@ -18,6 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes),
     provideHttpClient(),
     provideAnimations(),
+    provideMarkdown(),
     importProvidersFrom(
       TranslateModule.forRoot({
         loader: {

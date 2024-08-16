@@ -11,5 +11,19 @@
       "ITEM_3": "Koptelefoon"
     },
     "PRICE": "Prijs",
-    "CURRENCY": "EUR"
+    "CURRENCY": "EUR",
+    "TAGLINE" : "Ontdek LeerCreatief: ",
+    "HEADBAN" : "Jouw Partner in Interactief Online Leren",
+    "MAINTEXT" : "Maak moeiteloos prachtige e-learningcursussen met onze innovatieve drag-and-drop editor. Of je nu een ervaren instructeur bent of net begint, LeerCreatief stelt je in staat om boeiende leerervaringen te creëren zonder technische kennis.",
+    "REASONS" : "Waarom LeerCreatief?",
+    "REASON1BOLD" : "Intuïtieve Drag-and-Drop Editor:",
+    "REASON1" : "Ontwerp professionele cursussen in een handomdraai.",
+    "REASON2BOLD" : "Veelzijdige Content Creatie:",
+    "REASON2" : "Voeg eenvoudig tekst, afbeeldingen, video's en quizzen toe.",
+    "REASON3BOLD" : "Responsief Design",
+    "REASON3" : "Je cursussen zien er perfect uit op elk apparaat.",
+    "REASON4BOLD" : "Gebruiksvriendelijk Platform:",
+    "REASON4" : "Eenvoudig te navigeren voor zowel cursusmakers als deelnemers.",
+    "STARTTODAY" : "Begin vandaag nog met het transformeren van je kennis in boeiende online leerervaringen!",
+    "DEMO" : "[Start Gratis Proefperiode]   [Bekijk Demovideo]"
   }
