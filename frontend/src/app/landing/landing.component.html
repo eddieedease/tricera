@@ -2,8 +2,15 @@
 <div class="bg-white min-h-screen">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
     <p class="text-lg mb-4">{{ 'INTRO_MESSAGE' | translate }}</p>
+
       <p class="text-lg">{{message}}</p>
-   
+      <ul>
+        <li *ngFor="let user of users">
+          {{ user.name }} ({{ user.email }})
+        </li>
+      </ul>
+      <br>
+      
       <p class="text-teal-500 text-lg mb-4">{{ 'TAGLINE' | translate }}</p>
 
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">

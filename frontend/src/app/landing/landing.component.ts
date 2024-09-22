@@ -14,6 +14,7 @@ import { StoreSerService } from '../store-ser.service';
 export class LandingComponent {
 
   message: string = '';
+  users: any[] = [];
 
   // environment vars
   constructor(private storeService: StoreSerService) {}
@@ -28,6 +29,11 @@ export class LandingComponent {
         this.message = 'Error loading message';
       }
     });
+
+    this.storeService.getUsers().subscribe(
+      users => this.users = users,
+      error => console.error('Error fetching users', error)
+    );
 
     // logger test
     this.storeService.warn('This is a test warning');

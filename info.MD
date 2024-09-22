@@ -1,5 +1,9 @@
 # Handy Things
 
+node 20.15.0
+angular 18.1
+
+
 ## NX
 nx add @nestjs/swagger
 

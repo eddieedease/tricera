@@ -9,6 +9,7 @@ import { environment } from '../environments/environment';
 export class StoreSerService {
 
   apiUrl = environment.apiUrl;
+  usersApiUrl = this.apiUrl + '/users'
 
   constructor(private http: HttpClient) { }
 
@@ -33,6 +34,12 @@ export class StoreSerService {
 
   // API CALLS
   getHelloMessage(): Observable<{ message: string }> {
+    this.log(this.usersApiUrl);
     return this.http.get<{ message: string }>(this.apiUrl);
+  }
+
+  getUsers(): Observable<any[]> {
+    this.log(this.usersApiUrl);
+    return this.http.get<any[]>(this.usersApiUrl);
   }
 }
